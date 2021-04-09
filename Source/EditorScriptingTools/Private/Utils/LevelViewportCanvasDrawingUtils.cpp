@@ -4,7 +4,6 @@
 
 
 #include "LevelViewportCanvasDrawingUtils.h"
-#include "Engine.h"
 #include "Engine/Font.h"
 #include "Engine/Texture2D.h"
 #include "BluEdMode.h"
@@ -12,6 +11,7 @@
 #include "CanvasTypes.h"
 #include "Engine/Canvas.h"
 #include "EditorScriptingToolsTypes.h"
+#include "Components/BillboardComponent.h"
 
 namespace LevelViewportCanvasDrawingUtils
 {
@@ -20,7 +20,10 @@ namespace LevelViewportCanvasDrawingUtils
 		static UFont* DefaultFont;
 		if (DefaultFont == nullptr)
 		{
-			const FStringAssetReference DefaultFontName = FString(TEXT("/BluEdMode/Fonts/Condensed_Font.Condensed_Font"));
+			// @THE_COALITION_CHANGE: ryandow@microsoft.com - BEGIN [Update for UE5]
+			// const FStringAssetReference DefaultFontName = FString(TEXT("/BluEdMode/Fonts/Condensed_Font.Condensed_Font"));
+			const FSoftObjectPath DefaultFontName = FString(TEXT("/BluEdMode/Fonts/Condensed_Font.Condensed_Font"));
+			// @THE_COALITION_CHANGE: ryandow@microsoft.com - END [Update for UE5]
 			DefaultFont = Cast<UFont>(DefaultFontName.TryLoad());
 		}
 		return DefaultFont != nullptr ? DefaultFont : GEngine->GetLargeFont();

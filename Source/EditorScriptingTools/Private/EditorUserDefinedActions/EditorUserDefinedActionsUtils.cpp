@@ -92,7 +92,10 @@ void FEditorUserDefinedActionsUtils::BroadcastChanges(const UEditorUserDefinedAc
 			}
 		}
 
-		for (FObjectIterator ObjIter; ObjIter; ++ObjIter)
+		// @THE_COALITION_CHANGE: ryandow@microsoft.com - BEGIN [Update for UE5]
+		// for (FObjectIterator ObjIter; ObjIter; ++ObjIter)
+		for (FThreadSafeObjectIterator ObjIter; ObjIter; ++ObjIter)
+		// @THE_COALITION_CHANGE: ryandow@microsoft.com - END [Update for UE5]
 		{
 			for (UClass* Class : ClassesToCheck)
 			{

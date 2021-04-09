@@ -10,7 +10,9 @@ public class EditorScriptingTools : ModuleRules
     public EditorScriptingTools(ReadOnlyTargetRules Target) : base(Target)
     {
 
-        PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
+        //PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
+        PCHUsage = ModuleRules.PCHUsageMode.NoPCHs;
+        bUseUnity = false;
 
         PrivateIncludePaths.AddRange(new string[] 
             {
@@ -77,6 +79,9 @@ public class EditorScriptingTools : ModuleRules
                 "PlacementMode",
                 "SettingsEditor",
                 "ApplicationCore",
+                // @THE_COALITION_CHANGE: ryandow@microsoft.com - BEGIN [Update for UE5]
+                "EditorFramework"
+                // @THE_COALITION_CHANGE: ryandow@microsoft.com - END [Update for UE5]
             });
 
         DynamicallyLoadedModuleNames.Add("AssetTools");

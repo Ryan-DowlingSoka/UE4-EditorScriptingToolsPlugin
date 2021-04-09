@@ -314,15 +314,24 @@ namespace LevelEditingViewportUtils
 	{
 		if (FEditorViewportClient* ViewportClient = GetCurrentEditingViewportClient())
 		{
-			ViewportClient->SetRealtimeOverride(bShouldBeRealtime, SystemDisplayName);
+			// @THE_COALITION_CHANGE: ryandow@microsoft.com - BEGIN [Update for UE5]
+			// ViewportClient->SetRealtimeOverride(bShouldBeRealtime, SystemDisplayName);
+			ViewportClient->AddRealtimeOverride(bShouldBeRealtime, SystemDisplayName);
+			// @THE_COALITION_CHANGE: ryandow@microsoft.com - END [Update for UE5]
 		}
 	}
 
-	void RemoveRealtimeOverride()
+	// @THE_COALITION_CHANGE: ryandow@microsoft.com - BEGIN [Update for UE5]
+	// void RemoveRealtimeOverride()
+	void RemoveRealtimeOverride(FText SystemDisplayName)
+	// @THE_COALITION_CHANGE: ryandow@microsoft.com - END [Update for UE5]
 	{
 		if (FEditorViewportClient* ViewportClient = GetCurrentEditingViewportClient())
 		{
-			ViewportClient->RemoveRealtimeOverride();
+			// @THE_COALITION_CHANGE: ryandow@microsoft.com - BEGIN [Update for UE5]
+			//ViewportClient->RemoveRealtimeOverride();
+			ViewportClient->RemoveRealtimeOverride(SystemDisplayName);
+			// @THE_COALITION_CHANGE: ryandow@microsoft.com - END [Update for UE5]
 		}
 	}
 

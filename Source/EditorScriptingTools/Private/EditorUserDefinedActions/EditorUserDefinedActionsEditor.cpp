@@ -425,7 +425,15 @@ TSharedRef<SDockTab> FEditorUserDefinedActionsEditor::SpawnActionsTab(const FSpa
 	// Create a property view
 	FPropertyEditorModule& EditModule = FModuleManager::Get().GetModuleChecked<FPropertyEditorModule>("PropertyEditor");
 
-	FDetailsViewArgs DetailsViewArgs( /*bUpdateFromSelection=*/ false, /*bLockable=*/ false, /*bAllowSearch=*/ false, FDetailsViewArgs::HideNameArea, /*bHideSelectionTip=*/ true);
+	// @THE_COALITION_CHANGE: ryandow@microsoft.com - BEGIN [Update for UE5]
+	// FDetailsViewArgs DetailsViewArgs( /*bUpdateFromSelection=*/ false, /*bLockable=*/ false, /*bAllowSearch=*/ false, FDetailsViewArgs::HideNameArea, /*bHideSelectionTip=*/ true);
+	FDetailsViewArgs DetailsViewArgs;
+	DetailsViewArgs.bUpdatesFromSelection = false;
+	DetailsViewArgs.bLockable = false;
+	DetailsViewArgs.bAllowSearch = false;
+	DetailsViewArgs.NameAreaSettings = FDetailsViewArgs::HideNameArea;
+	DetailsViewArgs.bHideSelectionTip = true;
+	// @THE_COALITION_CHANGE: ryandow@microsoft.com - END [Update for UE5]
 	DetailsViewArgs.bShowOptions = false;
 
 	PropertyView = EditModule.CreateDetailView(DetailsViewArgs);

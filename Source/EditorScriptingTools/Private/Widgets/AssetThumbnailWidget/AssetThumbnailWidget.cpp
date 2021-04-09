@@ -7,6 +7,9 @@
 #include "LevelEditor.h"
 #include "Modules/ModuleManager.h"
 #include "AssetThumbnail.h"
+// @THE_COALITION_CHANGE: ryandow@microsoft.com - BEGIN [Update for UE5]
+#include "ThumbnailRendering/ThumbnailManager.h"
+// @THE_COALITION_CHANGE: ryandow@microsoft.com - END [Update for UE5]
 
 #include "Widgets/SNullWidget.h"
 #include "Widgets/DeclarativeSyntaxSupport.h"
@@ -49,9 +52,12 @@ void UAssetThumbnailWidget::UpdateWidgetContent()
 	ThumbnailSize.X = FMath::Max<float>(ThumbnailSize.X, 4.0f);
 	ThumbnailSize.Y = FMath::Max<float>(ThumbnailSize.Y, 4.0f);
 
-	FLevelEditorModule& LevelEditorModule = FModuleManager::GetModuleChecked<FLevelEditorModule>(TEXT("LevelEditor"));
-	TWeakPtr<class ILevelEditor> LevelEditor = LevelEditorModule.GetLevelEditorInstance();
-	TSharedPtr<FAssetThumbnailPool> ThumbnailPool = LevelEditor.Pin()->GetThumbnailPool();
+	// @THE_COALITION_CHANGE: ryandow@microsoft.com - BEGIN [Update for UE5]
+	//FLevelEditorModule& LevelEditorModule = FModuleManager::GetModuleChecked<FLevelEditorModule>(TEXT("LevelEditor"));
+	//TWeakPtr<class ILevelEditor> LevelEditor = LevelEditorModule.GetLevelEditorInstance();
+	//TSharedPtr<FAssetThumbnailPool> ThumbnailPool = LevelEditor.Pin()->GetThumbnailPool();
+	TSharedPtr<FAssetThumbnailPool> ThumbnailPool = UThumbnailManager::Get().GetSharedThumbnailPool();
+	// @THE_COALITION_CHANGE: ryandow@microsoft.com - END [Update for UE5]
 	TSharedPtr < FAssetThumbnail> AssetThumbnail = MakeShareable(new FAssetThumbnail(FAssetData(Asset, true), ThumbnailSize.X, ThumbnailSize.Y, ThumbnailPool));
 
 

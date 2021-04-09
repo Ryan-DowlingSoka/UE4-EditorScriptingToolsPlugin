@@ -17,7 +17,9 @@
 
 #include "Modules/ModuleManager.h"
 #include "PropertyEditorModule.h" 
-#include "Toolkits/AssetEditorManager.h"
+// @THE_COALITION_CHANGE: ryandow@microsoft.com - BEGIN [Update for UE5]
+//#include "Toolkits/AssetEditorManager.h"
+// @THE_COALITION_CHANGE: ryandow@microsoft.com - END [Update for UE5]
 #include "UnrealEdGlobals.h"
 #include "PropertyPath.h"
 #include "DetailLayoutBuilder.h" 
@@ -31,6 +33,7 @@
 #include "Widgets/Layout/SScrollBox.h"
 #include "Widgets/SNullWidget.h"
 #include "Widgets/Layout/SScaleBox.h"
+#include "Widgets/Images/SImage.h"
 #include "Kismet2/SClassPickerDialog.h"
 #include "EditorFontGlyphs.h"
 #include "Widgets/Text/STextBlock.h"
@@ -310,27 +313,33 @@ void SBluEdModeWidget::Construct(const FArguments& InArgs)
 							.Orientation(Orient_Vertical)
 							+ SScrollBox::Slot()
 							[
+								// @THE_COALITION_CHANGE: ryandow@microsoft.com - BEGIN [Fixes for Editor Mode Panel Formatting (UE5 Change)]
 								SNew(SVerticalBox)
 								+SVerticalBox::Slot()
 								.AutoHeight()
+								.HAlign(HAlign_Fill)
 								[
-									SNew(SScrollBox)
+									/*SNew(SScrollBox)
 									.ExternalScrollbar(HorizontalScrollbar)
 									.Orientation(Orient_Horizontal)
 									+SScrollBox::Slot()
-									[
+									[*/
 										SAssignNew(ToolkitWidgetContainer, SBox)
 										.Visibility(this, &SBluEdModeWidget::GetSectionWidgetVisibility, EBluEdModeWidgetSectionsVisibility::ToolkitWidget)
-									]
+										.HAlign(HAlign_Fill)
+									/*]*/
 								]
 								+ SVerticalBox::Slot()
 								.Padding(1.0f)
+								.HAlign(HAlign_Fill)
 								[
 									SNew(SVerticalBox)
 									.Visibility(this, &SBluEdModeWidget::GetSectionWidgetVisibility,EBluEdModeWidgetSectionsVisibility::DetailsView)
 									+ SVerticalBox::Slot()
 									.Padding(2.0f)
 									.AutoHeight()
+									.HAlign(HAlign_Fill)
+									// @THE_COALITION_CHANGE: ryandow@microsoft.com - END [Fixes for Editor Mode Panel Formatting (UE5 Change)]
 									[
 										ToolInstanceDetailsView.ToSharedRef()
 									]
@@ -345,6 +354,7 @@ void SBluEdModeWidget::Construct(const FArguments& InArgs)
 										.Visibility(this, &SBluEdModeWidget::GetApplyChangesButtonVisibility)
 										.ButtonColorAndOpacity(FLinearColor(0,0,0,.25f))
 										.OnClicked(this,&SBluEdModeWidget::OnApplyChangesToToolBlueprint)
+										.ToolTipText(LOCTEXT("ApplyChanges_ToolTip", "Apply changes to blueprint."))
 										[
 											SNew(SImage)
 											.Image(FEditorScriptingToolsStyle::Get()->GetBrush("BluEdMode.ApplyInstanceChanges"))
@@ -589,6 +599,11 @@ bool SBluEdModeWidget::IsSectionSwitcherVisible() const
 
 bool SBluEdModeWidget::IsSectionVisible(EBluEdModeWidgetSectionsVisibility InSection) const
 {
+	if (InSection == EBluEdModeWidgetSectionsVisibility::DetailsView)
+	{
+		return IsDetailsWidgetDisplayingAnyProperty();
+	}
+
 	return (SectionsVisibilityFlags & (1 << InSection)) != 0;
 }
 

@@ -6,6 +6,9 @@
 #include "CoreMinimal.h"
 #include "UObject/ObjectMacros.h"
 #include "UObject/UObjectGlobals.h"
+// @THE_COALITION_CHANGE: ryandow@microsoft.com - BEGIN [No-Unity / No-PCH Fixes]
+#include "Templates/Casts.h"
+// @THE_COALITION_CHANGE: ryandow@microsoft.com - END [No-Unity / No-PCH Fixes]
 
 class IDetailLayoutBuilder;
 

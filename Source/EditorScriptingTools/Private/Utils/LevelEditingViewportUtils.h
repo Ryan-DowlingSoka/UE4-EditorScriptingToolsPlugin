@@ -51,7 +51,10 @@ namespace LevelEditingViewportUtils
 
 
 	void SetRealtimeOverride(bool bShouldBeRealtime, FText SystemDisplayName);
-	void RemoveRealtimeOverride();
+	// @THE_COALITION_CHANGE: ryandow@microsoft.com - BEGIN [Update for UE5]
+	// void RemoveRealtimeOverride();
+	void RemoveRealtimeOverride(FText SystemDisplayName);
+	// @THE_COALITION_CHANGE: ryandow@microsoft.com - END [Update for UE5]
 	bool ToggleRealtime();
 	void SetRealtime(bool bInRealtime);
 	bool IsRealtime();

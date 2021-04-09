@@ -12,7 +12,9 @@
 #include "EditorModes.h"
 #include "EditorTypesWrapperTypes.h"
 #include "EditorScriptingToolsTypes.h"
-#include "ILevelViewport.h"
+// @THE_COALITION_CHANGE: ryandow@microsoft.com - BEGIN [Update for UE5]
+//#include "ILevelViewport.h"
+// @THE_COALITION_CHANGE: ryandow@microsoft.com - END [Update for UE5]
 #include "SLevelViewport.h"
 #include "LevelEditorViewport.h"
 #include "EditorViewportClient.h"
@@ -598,7 +600,10 @@ bool FBluEdMode::ShowModeWidgets() const
 	return true;
 }
 
-EAxisList::Type FBluEdMode::GetWidgetAxisToDraw(FWidget::EWidgetMode InWidgetMode) const
+// @THE_COALITION_CHANGE: ryandow@microsoft.com - BEGIN [Update for UE5]
+// EAxisList::Type FBluEdMode::GetWidgetAxisToDraw(FWidget::EWidgetMode InWidgetMode) const
+EAxisList::Type FBluEdMode::GetWidgetAxisToDraw(UE::Widget::EWidgetMode InWidgetMode) const
+// @THE_COALITION_CHANGE: ryandow@microsoft.com - END [Update for UE5]
 {
 	if (CanUseCurrentToolInstance())
 	{
@@ -758,7 +763,10 @@ bool FBluEdMode::UsesTransformWidget() const
 	return true;
 }
 
-bool FBluEdMode::UsesTransformWidget(FWidget::EWidgetMode CheckMode) const
+// @THE_COALITION_CHANGE: ryandow@microsoft.com - BEGIN [Update for UE5]
+// bool FBluEdMode::UsesTransformWidget(FWidget::EWidgetMode CheckMode) const
+bool FBluEdMode::UsesTransformWidget(UE::Widget::EWidgetMode CheckMode) const
+// @THE_COALITION_CHANGE: ryandow@microsoft.com - END [Update for UE5]
 {
 	if (CanUseCurrentToolInstance())
 	{
@@ -780,7 +788,10 @@ bool FBluEdMode::OwnerUsesTransformWidget(ETransformGizmoMode::Type CheckMode) c
 			// If editing a vector (not a transform)
 			if (!EditedPropertyName.IsEmpty() && !bEditedPropertyIsTransform)
 			{
-				return (static_cast<FWidget::EWidgetMode>(CheckMode) == FWidget::WM_Translate);
+				// @THE_COALITION_CHANGE: ryandow@microsoft.com - BEGIN [Update for UE5]
+				// return (static_cast<FWidget::EWidgetMode>(CheckMode) == FWidget::WM_Translate);
+				return (static_cast<UE::Widget::EWidgetMode>(CheckMode) == UE::Widget::WM_Translate);
+				// @THE_COALITION_CHANGE: ryandow@microsoft.com - END [Update for UE5]
 			}
 		}
 	}
